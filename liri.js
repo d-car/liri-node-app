@@ -1,8 +1,10 @@
-var keys = require('./keys.js');
+var keys = require("./keys.js")
+var dotenv =  require("dotenv").config();
 var request = require('request');
-var spotify = require('spotify');
+var Spotify = require('node-spotify-api');
+var spotify = new Spotify(keys.spotify)
 var twitter = require('twitter');
-var client = new twitter(keys.twitterKeys);
+var client = new twitter(keys.twitter);
 var fs = require("fs");
 
 var nodeargv = process.argv;
@@ -27,7 +29,7 @@ switch(process.argv[2]){
       if(x){
         spotifySearch(x);
       } else{
-        spotifySearch("Fluorescent Adolescent");
+        spotifySearch("Old Man");
       }
     break;
 }
@@ -37,33 +39,28 @@ switch(process.argv[2]){
 
 
 function spotifySearch(song) {
-    spotify.search({ type: "track", query: song}, function (error, data){
-        if(!error){
-            for(var i = 0; i < data.tracks.items.length; i++) {
-                var songData = data.tracks.items[i];
-                //artist
-                console.log("Artist: " + songData.artists[0].name);
-                //song
-                console.log("Song: " + songData.name);
-                //album
-                console.log("Album: " + sonData.album.name);
-            
-                fs.appendFile("log.txt", songData.artists[0].name);
-                fs.appendFile("log.txt", songData.name);
-                fs.appendFile("log.txt", songData.album.name);
-            }
-        } else {
+    spotify.search({ type: "track", query: song}, function (err, data){
+        if(err){
             console.log("ERROR ERROR ERROROOOROROROR");
+        
+            // for(var i = 0; i < data.tracks.items.length; i++) {
+            //     var songData = data.tracks.items[i];
+            //     //artist
+            //     console.log("Artist: " + songData.artists[0].name);
+            //     //song
+            //     console.log("Song: " + songData.name);
+            //     //album
+            //     console.log("Album: " + sonData.album.name);
+            
+            //     fs.appendFile("log.txt", songData.artists[0].name);
+            //     fs.appendFile("log.txt", songData.name);
+            //     fs.appendFile("log.txt", songData.album.name);
+        } else {
+            console.log(data)
         }
-    })
+    } 
+            
+        
+    )
 }
 
-
-
-function doThing(){
-    fs.readFile('random.txt', "utf8", function(error, data){
-      var txt = data.split(',');
-  
-      spotifySong(txt[1]);
-    });
-  }
