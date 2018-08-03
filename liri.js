@@ -10,6 +10,7 @@ var fs = require("fs");
 var nodeargv = process.argv;
 var command = process.argv[2];
 
+//empty user search item variable
 var x = "";
 
 
@@ -32,6 +33,10 @@ switch(process.argv[2]){
         spotifySearch("Old Man");
       }
     break;
+
+    case "my-tweets":
+    showTweets();
+    break;
 }
 
 
@@ -39,28 +44,28 @@ switch(process.argv[2]){
 
 
 function spotifySearch(song) {
-    spotify.search({ type: "track", query: song}, function (err, data){
-        if(err){
-            console.log("ERROR ERROR ERROROOOROROROR");
-        
-            // for(var i = 0; i < data.tracks.items.length; i++) {
-            //     var songData = data.tracks.items[i];
-            //     //artist
-            //     console.log("Artist: " + songData.artists[0].name);
-            //     //song
-            //     console.log("Song: " + songData.name);
-            //     //album
-            //     console.log("Album: " + sonData.album.name);
+    spotify.search({ type: "track", query: song}, function(err, data) {
+        if(!err){
+            for(var i = 0; i < data.tracks.items.length; i++) {
+                var songData = data.tracks.items[i];
+                console.log("--------------------------------");
+                //artist
+                console.log("Artist: " + songData.artists[0].name);
+                //song
+                console.log("Song: " + songData.name);
+                //preview link
+                console.log("Preview URL: " + songData.preview_url);
+                //album
+                console.log("Album: " + songData.album.name);
+                console.log("--------------------------------");
             
-            //     fs.appendFile("log.txt", songData.artists[0].name);
-            //     fs.appendFile("log.txt", songData.name);
-            //     fs.appendFile("log.txt", songData.album.name);
+                fs.appendFile("random.txt", songData.artists[0].name);
+                fs.appendFile("random.txt", songData.name);
+                fs.appendFile("random.txt", songData.album.name);
+            }
         } else {
-            console.log(JSON.stringify.data)
-        }
-    } 
+                console.log("ERROR OCCURRED " + err);    
             
-        
-    )
-}
-
+              }   
+    } 
+)}
