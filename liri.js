@@ -1,8 +1,8 @@
-var keys = require("./keys.js")
-var dotenv =  require("dotenv").config();
+var dotenv =  require('dotenv').config();
+var keys = require('./keys.js')
 var request = require('request');
 var Spotify = require('node-spotify-api');
-var spotify = new Spotify(keys.spotify)
+var spotify = new Spotify(keys.spotify);
 var twitter = require('twitter');
 var client = new twitter(keys.twitter);
 var fs = require("fs");
@@ -56,7 +56,7 @@ function spotifySearch(song) {
             //     fs.appendFile("log.txt", songData.name);
             //     fs.appendFile("log.txt", songData.album.name);
         } else {
-            console.log(data)
+            console.log(JSON.stringify.data)
         }
     } 
             
