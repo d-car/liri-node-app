@@ -35,7 +35,7 @@ switch(process.argv[2]){
     break;
 
     case "my-tweets":
-    showTweets();
+    myTweets();
     break;
 }
 
@@ -69,3 +69,28 @@ function spotifySearch(song) {
               }   
     } 
 )}
+
+function myTweets() {
+    var twitterUsername = process.argv[3];
+    if(!twitterUsername){
+        twitterUsername = "DanC_NUBC_Chi";
+    }
+    params = {screen_name: twitterUsername};
+    client.get("statuses/user_timeline/", params, function(error, data, response){
+        if (!error) {
+            for(var i = 0; i < data.length; i++) {
+                //Show the full response in the terminal
+                var twitterResults = 
+                "@" + data[i].user.screen_name + ": " + 
+                data[i].text + "\r\n" + 
+                data[i].created_at + "\r\n" + 
+                "------------------------------ " + i + " ------------------------------" + "\r\n";
+                console.log(twitterResults);
+                // log(twitterResults); // calling log function
+            }
+        }  else {
+            console.log("Error :"+ error);
+            return;
+            }
+    })
+};
