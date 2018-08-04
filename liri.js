@@ -102,7 +102,7 @@ function myTweets() {
                 // log(twitterResults); // calling log function
                         
                 //adds text to log.txt file
-                fs.appendFile("log.txt", "@DanC_NUBC_Chi: " + data[i].text + " Created At: " + data[i].created_at + "\n");
+                fs.appendFile("log.txt", "@" + twitterUsername + ": " + data[i].text + " Created At: " + data[i].created_at + "\n");
                 
             }
         }  else {
