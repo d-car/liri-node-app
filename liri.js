@@ -45,6 +45,10 @@ switch(process.argv[2]){
       omdbData("Mr. Nobody")
     }
     break;
+   
+    case "do-what-it-says":
+    doSay();
+    break;  
 }
 
 
@@ -67,9 +71,10 @@ function spotifySearch(song) {
                 console.log("Album: " + songData.album.name);
                 console.log("--------------------------------");
             
-                fs.appendFile("log.txt", songData.artists[0].name);
-                fs.appendFile("log.txt", songData.name);
-                fs.appendFile("log.txt", songData.album.name);
+                fs.appendFile("log.txt", songData.artists[0].name + '\n');
+                fs.appendFile("log.txt", songData.name + '\n');
+                fs.appendFile("log.txt", songData.album.name + '\n');
+                fs.appendFile("log.txt", ("--------------------------------" + '\n'));
             }
         } else {
                 console.log("ERROR OCCURRED " + err);    
@@ -98,7 +103,7 @@ function myTweets() {
                         
                 //adds text to log.txt file
                 fs.appendFile("log.txt", "@DanC_NUBC_Chi: " + data[i].text + " Created At: " + data[i].created_at + "\n");
-                fs.appendFile("log.txt", "-----------------------" + "\r\n");
+                
             }
         }  else {
             console.log("Error :"+ error);
@@ -124,7 +129,7 @@ function omdbData(movie){
         console.log("Rotten Tomatoes Rating: " + body.tomatoRating);
         console.log("Rotten Tomatoes URL: " + body.tomatoURL);
 
-        //adds text to log.txt
+        //append to log.txt
         fs.appendFile('log.txt', "Title: " + body.Title + '\n');
         fs.appendFile('log.txt', "Release Year: " + body.Year + '\n');
         fs.appendFile('log.txt', "IMdB Rating: " + body.imdbRating + '\n');
@@ -144,7 +149,20 @@ function omdbData(movie){
         console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
         console.log("It's on Netflix!");
 
+        //append to log.txt
+        fs.appendFile('log.txt', "-----------------------");
+        fs.appendFile('log.txt', "If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
+        fs.appendFile('log.txt', "It's on Netflix!");
+
       }
     });
   
+}
+
+function doSay(){
+    fs.readFile('random.txt', "utf8", function(error, data){
+      var txt = data.split(',');
+  
+      spotifySearch(txt[1]);
+    });
   }
