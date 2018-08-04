@@ -67,9 +67,9 @@ function spotifySearch(song) {
                 console.log("Album: " + songData.album.name);
                 console.log("--------------------------------");
             
-                fs.appendFile("random.txt", songData.artists[0].name);
-                fs.appendFile("random.txt", songData.name);
-                fs.appendFile("random.txt", songData.album.name);
+                fs.appendFile("log.txt", songData.artists[0].name);
+                fs.appendFile("log.txt", songData.name);
+                fs.appendFile("log.txt", songData.album.name);
             }
         } else {
                 console.log("ERROR OCCURRED " + err);    
@@ -95,6 +95,10 @@ function myTweets() {
                 "------------------------------ " + i + " ------------------------------" + "\r\n";
                 console.log(twitterResults);
                 // log(twitterResults); // calling log function
+                        
+                //adds text to log.txt file
+                fs.appendFile("log.txt", "@DanC_NUBC_Chi: " + data[i].text + " Created At: " + data[i].created_at + "\n");
+                fs.appendFile("log.txt", "-----------------------" + "\r\n");
             }
         }  else {
             console.log("Error :"+ error);
@@ -119,6 +123,18 @@ function omdbData(movie){
         console.log("Actors: " + body.Actors);
         console.log("Rotten Tomatoes Rating: " + body.tomatoRating);
         console.log("Rotten Tomatoes URL: " + body.tomatoURL);
+
+        //adds text to log.txt
+        fs.appendFile('log.txt', "Title: " + body.Title + '\n');
+        fs.appendFile('log.txt', "Release Year: " + body.Year + '\n');
+        fs.appendFile('log.txt', "IMdB Rating: " + body.imdbRating + '\n');
+        fs.appendFile('log.txt', "Country: " + body.Country + '\n');
+        fs.appendFile('log.txt', "Language: " + body.Language + '\n');
+        fs.appendFile('log.txt', "Plot: " + body.Plot + '\n');
+        fs.appendFile('log.txt', "Actors: " + body.Actors + '\n');
+        fs.appendFile('log.txt', "Rotten Tomatoes Rating: " + body.tomatoRating + '\n');
+        fs.appendFile('log.txt', "Rotten Tomatoes URL: " + body.tomatoURL + '\n');
+        
   
       } else{
         console.log("Error occurred: " + error)
